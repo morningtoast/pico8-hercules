@@ -77,6 +77,53 @@ function collide_tile(x,y,hb,flag)
 	return collide
 end
 
+-- takes screen x/y and returns nearest rounded screen x/y to match 8px tile position
+-- for local screen only, NOT active map or absolute coordinates
+function get_nearest_tilepx(x,y)
+	local winx=ceil((x)/8)*8-8
+	local winy=ceil((y)/8)*8-8
+
+	return winx,winy
+end
+
+-- bullet hits any map tile
+-- see which tile flag it is and respond accordingly
+function bullet_hit_tile(x,y)
+	local mx,my=screenxy_to_mapxy(x,y)
+	local collide=false
+
+	local tile_spr=mget(mx,my)
+	local tile_flag=fget(tile_spr)
+
+
+
+    if tile_flag>0 then
+		 -- 1=blocking tiles
+		if tile_flag==1 then
+
+			-- trees; leave stumps
+			if tile_spr==2 or tile_spr==5 then
+				mset(mx,my,20)
+			end
+		end
+
+
+		-- see if tile should reveal anything; pickup or mob
+		if tile_has_drop(mx,my,x,y) then
+
+			--local winx=ceil((x)/8)*8-8
+			--local winy=ceil((y)/8)*8-8
+			--printh(winx..","..winy)
+			--add_mob(winx,winy)
+			
+		end
+
+		return true
+	end
+
+	return false
+end
+
 function collide_point(x,y,flag)
 	local tx_tl,ty_tl=screenxy_to_mapxy(x,y)
 	local collide=false
@@ -192,13 +239,15 @@ function add_orbit(spr)
 end
 
 
-function check_drop(tx,ty)
+function tile_has_drop(tx,ty,sx,sy)
 	local match=false
 	for o in all(drops) do
 		if o.x==tx and o.y==ty then
-			printh("show "..o.name)
+			printh("tile "..tx..","..ty.." has a drop")
 
-			
+			local posx,posy=get_nearest_tilepx(sx,sy)
+
+			o.func(posx,posy)
 
 			--mset(tx,ty,o.spr)
 			match=true
@@ -211,7 +260,7 @@ end
 
 
 function add_mob(x,y)
-	printh("new mob")
+	printh("I AM A SNAKE "..x..","..y)
 	local obj={
 		x=x,y=y,hb={x=0,y=0,w=7,h=7},
 		_u=function(me)
@@ -235,8 +284,37 @@ function add_mob(x,y)
 	add(mobs,obj)
 end
 
+function drop_heart(x,y)
+	printh("I AM A HEART "..x..","..y)
+	local obj={
+		x=x,y=y,hb={x=0,y=0,w=7,h=7},
+		_u=function(me)
+			--me.y+=1
+
+			--[[for b in all(bullets) do
+				if collide(me.x,me.y,me.hb,b.x,b.y,b.hb) then
+					del(mobs,me)
+					del(bullets,b)
+				end
+
+			end]]
+
+			if me.y>window_bot then del(mobs,me) end
+		end,
+		_d=function(me)
+			spr(19,me.x,me.y)
+		end
+	}
+
+	add(mobs,obj)
+end
+
 
 function offscreen(x,y) return (x<0 or x>130 or y<cam_y or y>cam_y+127) end
+
+function mob_snake(x,y)
+	add_mob(x,y)
+end
 
 -- #loop
 function _init()
@@ -261,7 +339,8 @@ function _init()
 
 	-- tiles that reveal pickups after being destroyed
 	drops={
-		{x=40,y=6,spr=3,name="snake1"},
+		{x=40,y=6,func=mob_snake},
+		{x=8,y=28,func=drop_heart},
 		--{x=25,y=6,spr=3,name="snake2"},
 		--{x=4,y=7,spr=19,name="heart"}
 	}
@@ -456,7 +535,8 @@ function _update60()
 				me.cx=me.x+3
 				me.cy=me.y+3
 
-				if collide_point(me.cx,me.y,0) then
+				--if collide_point(me.cx,me.y,0) then
+				if bullet_hit_tile(me.cx,me.y) then
 					
 
 					del(bullets,me)
@@ -718,8 +798,8 @@ __gfx__
 000000dddddd0000000dd700708ee807000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000dddddddd000007dd00002088020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 0000dddddd1ddd000000700000200200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-000ddddddd11dd100000000000022000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-00ddddddddd11dd10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+000ddddddd11dd100000000000022000000f90000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+00ddddddddd11dd10000000000000000000440000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00dddddddddd11dd0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00ddddddddddd11d0000225000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00d1dddddd1ddd110000555000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
