@@ -1,0 +1,131 @@
+function map_coll(obj,aim,flag)
+ --obj=table needs x,y,w,h
+ --aim=left,right,up,down
+ local x=obj.x local y=obj.y
+ local w=obj.w*8 local h=obj.h*8
+ local x1=0 local y1=0
+ local x2=0 local y2=0
+ 
+ if aim=="left" then
+  x1=x     y1=y
+  x2=x+1   y2=y+h-1
+ elseif aim=="right" then
+  x1=x+w-2 y1=y
+  x2=x+w-1 y2=y+h-1
+ elseif aim=="up" then
+  x1=x+2   y1=y-1
+  x2=x+w-3 y2=y
+ elseif aim=="down" then
+  x1=x+2     y1=y+h-1
+  x2=x+w-3 y2=y+h
+ end
+ --pixels to tiles
+  x1/=8 y1/=8
+  x2/=8 y2/=8
+  
+  if fget(mget(x1,y1), flag)
+   or fget(mget(x1,y2), flag)
+   or fget(mget(x2,y1), flag)
+   or fget(mget(x2,y2), flag) then
+   return true
+   else return false
+  end
+  
+end
+
+-- makespr() provides default properties for object
+-- then they're changed manually
+   local newbul=makespr()
+   newbul.x=p.x-5
+   newbul.y=p.y+10
+   newbul.spr=32
+   newbul.w=1
+   newbul.h=1
+   newbul.colh=4
+   newbul.flip=true
+   add(buls,newbul)
+
+
+groups of objects/actors
+- player
+- bullets
+- enemies
+- boss
+- waves/timer/spawner
+
+
+
+
+- Use map as a background so it shows destruction after object is gone
+- use text string to define objects that overlay the map
+
+- move camera on Y instead of moving background
+	- only push player off bottom if it's touching an object
+
+- what could be in each object when it's destroyed?
+	- charging bad guy, which bad guy?
+	- powerup
+		- move speed up
+		- move speed down
+		- chain length up
+		- chain length down
+		- spin cooldown less
+		- heal HP+
+		- poison HP-
+		- lightning = kill all in row/col
+		- time stopper
+	- secret stairs; shortcut or bonus room
+	- pit hole = slows player
+
+There can only ever be 2 maps showing
+on the screen at one time
+	have vars for map 1 and map 2
+	so you can check relative coords
+	for collisions
+
+	- common func to answer
+		- what map you're on right now
+			- convert screen x/y into 
+		- which tile x/y on that map are you
+
+
+UI METERS
+- Spin power, builds while spinning
+	- determines how much power item has to destroy
+- Fire repeat speed; replenished by collecting rocks
+- Health
+- letter + number for minors
+	- S1 = move speed
+	- C1 = chain length
+	- 
+
+
+what is the tile coord, on which map
+	what screen x/y was that mean
+what is the tile coord for the given pixel x/y
+
+4,7
+
+conver screen x/y using the position
+of the attacker (bullet, chain) - divide by 8
+to get nearest tile spot but it's not the
+actual tile x/y
+
+	tile x/y is created using the relative
+	formula that is already working
+
+	--> don't convert relatively tile x/y into
+		the screen x/y
+
+function tile_hit(ax,ay,mapid)
+	local thismap=stream[mapid]
+
+	rel_map_y=flr((ay/8)-(thismap.y/8))
+
+	local tx=flr(thismap.mapx+ax/8)
+	local ty=flr(thismap.mapy+rel_map_y)
+
+	tilespr=mget(tx,ty)
+
+	return fget(tilespr),tilespr,tx,ty
+end

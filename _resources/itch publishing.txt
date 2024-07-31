@@ -1,0 +1,134 @@
+EXPORTING GAME FROM PICO-8
+
+- Create the label using F7
+- Commandline: export -f itch.html -p itch
+
+This will generate the HTML/JS files in a 'itch_html' folder using the HTML template.
+
+Then zip up those files into 'index.zip' for uploading to Itch.
+
+
+ITCH PROJECT SETTINGS
+- Viewport dimensions: 960x680
+- Mobile friendly: true
+- Autoplay: true
+- Title banner image: 960x200 (height variable)
+
+
+CUSTOM CSS FOR ITCH PAGE
+
+Custom CSS guidelines: https://itch.io/docs/creators/css-guide
+
+Paste this into Edit Theme editor
+
+/* START: Custom Itch CSS */
+.view_game_page.view_flash_game_page .embed_wrapper, .view_game_page.view_html_game_page .embed_wrapper { margin-top:0; }
+.formatted_description code { background-color:#efefef; }
+.view_game_page .screenshot_list img { max-width:256px; }
+.user_formatted table.custom-noborder tr th,.user_formatted table.custom-noborder tr td,.inner_column table.custom-noborder { border:none; }
+table.custom-mapping-table th { background-color:#222; color:#fff; }
+/* END: Custom Itch CSS */
+
+
+CUSTOMIZE THE CONTENT BELOW FOR YOUR GAME, THEN PASTE THE HTML BELOW INTO THE ITCH EDITOR.
+Do not include HTML comments in paste. They will appear on the page.
+
+<!-- START: Itch content -->
+<h2>What people are saying about My Game</h2>
+<table width="100%" class="custom-noborder">
+	<tr>
+		<td width="20%">
+			**add image with editor**
+		</td>
+		<td>
+			<strong><em>__title of game__</em></strong> was included in a review on a website or magazine and someone played it over on youtube and said it was fun.
+		</td>
+</table>
+<hr>
+
+<h2>First tag line goes here</h2>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu euismod est. Vestibulum tincidunt blandit arcu, et dapibus dolor dictum ac.
+Etiam imperdiet cursus diam et aliquet. Maecenas eget erat nec nunc lacinia accumsan a et erat. Integer fermentum pharetra erat non semper. Mauris lobortis diam id libero dictum pellentesque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam id cursus mauris.
+</p>
+<ul>
+	<li>Lorem ipsum dolor sit amet</li>
+	<li>Lorem ipsum dolor sit amet</li>
+	<li>Lorem ipsum dolor sit amet</li>
+	<li>Lorem ipsum dolor sit amet</li>
+</ul>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu euismod est. Vestibulum tincidunt blandit arcu, et dapibus dolor dictum ac. Etiam imperdiet cursus diam et aliquet. Maecenas eget erat nec nunc lacinia accumsan a et erat. Integer fermentum pharetra erat non semper. Mauris lobortis diam id libero dictum pellentesque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam id cursus mauris. Morbi enim orci, fringilla sit amet convallis ac, mattis ut turpis. Nam lobortis nisi arcu, non euismod neque gravida eget. Suspendisse tincidunt ullamcorper risus ac consequat. Maecenas ante ante, vehicula ut magna eget, pulvinar tincidunt nisl. Etiam elementum varius hendrerit.
+</p>
+<hr>
+
+<h2>How to play</h2>
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu euismod est. Vestibulum tincidunt blandit arcu, et dapibus dolor dictum ac. Etiam imperdiet cursus diam et aliquet. Maecenas eget erat nec nunc lacinia accumsan a et erat. Integer fermentum pharetra erat non semper. Mauris lobortis diam id libero dictum pellentesque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam id cursus mauris. Morbi enim orci, fringilla sit amet convallis ac, mattis ut turpis. Nam lobortis nisi arcu, non euismod neque gravida eget. Suspendisse tincidunt ullamcorper risus ac consequat. Maecenas ante ante, vehicula ut magna eget, pulvinar tincidunt nisl. Etiam elementum varius hendrerit.
+</p>
+<ul>
+	<li>Lorem ipsum dolor sit amet</li>
+	<li>Lorem ipsum dolor sit amet</li>
+	<li>Lorem ipsum dolor sit amet</li>
+	<li>Lorem ipsum dolor sit amet</li>
+</ul>
+
+<hr>
+<h3>Game controls</h3>
+<p>
+	The game can be played with any connected gamepad controller, arcade stick, or by using the keyboard. <strong>Gamepad controller or arcade stick is recommended for best experience.</strong>
+</p>
+<table width="100%" class="custom-mapping-table">
+	<tr>
+		<th width="20%">Gamepad</th>
+		<th width="20%">Keyboard</th>
+		<th width="20%">In-game</th>
+		<th width="40%">Action</th>
+	</tr>
+	<tr>
+		<td>D-pad</td>
+		<td>Arrow keys</td>
+		<td><img src="https://morningtoast.com/pico8/arrows-dark.png"></td>
+		<td>Move player</td>
+	</tr>
+	<tr>
+		<td>B button</td>
+		<td>Z</td>
+		<td><img src="https://morningtoast.com/pico8/o-button-dark.png"></td>
+		<td>Shoot</td>
+	</tr>
+	<tr>
+		<td>A button</td>
+		<td>X</td>
+		<td><img src="https://morningtoast.com/pico8/x-button-dark.png"></td>
+		<td>Jump</td>
+	</tr>
+	<tr>
+		<td>Start</td>
+		<td>P or Enter</td>
+		<td>&nbsp;</td>
+		<td>Pause, system menu</td>
+	</tr>
+</table>
+<p>
+	Mappings on your gamepad or controller may be different than shown. Use the pause menu to check and test mappings.
+</p>
+<hr>
+<h3>PICO-8 Console owners</h3>
+<p>
+	For the best experience, play using the PICO-8 console on your computer or handheld gaming device. <a href="https://www.lexaloffle.com/pico-8.php" target="pico8">Buy PICO-8 for more great games</a>
+</p>
+<p>
+	Download the cartridge image below or type <code>load #__name__</code> in the commandline. You can also find the game in Splore by searching for "__keyword__".
+</p>
+<hr>
+
+<h2>Credits</h2>
+<p>Special thanks to the PICO-8 community for their support, help, and inspiration. <a href="https://www.lexaloffle.com/bbs/?cat=7" target="pico8">Visit the PICO-8 BBS</a> for more great games and to learn how to make your own games.</p>
+<ul>
+	<li>Game design & code: <strong>Brian Vaughn</strong></li>
+	<li>Music: <strong>Somebody Else</strong></li>
+	<li>Art & animation: <strong>Maybe Mee</strong></li>
+	<li>Additional assets: <strong>Brian Vaughn</strong></li>
+</ul>
+<!-- END: Itch content -->
