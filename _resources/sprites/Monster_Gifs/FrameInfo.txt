@@ -1,0 +1,2 @@
+Idle_Frame 1-4 
+Hurt_Frame 5

@@ -46,6 +46,12 @@ end
    add(buls,newbul)
 
 
+zones and boxes
+- viewable playarea
+- activation area; when items become active just before viewable
+- alive area; wider around window so things can move but, debris
+
+
 groups of objects/actors
 - player
 - bullets
@@ -54,6 +60,41 @@ groups of objects/actors
 - waves/timer/spawner
 
 
+types of mobs
+- snake
+- scorpion
+- bat/crow
+- ghost/spirit
+- dragon
+- bear
+- lion
+- wolf
+- harpy/fairy
+- bull
+- boar/hog
+- skeleton
+- crab
+
+Mob props
+- health
+- sprite
+
+Scoring?
+- mob kill w/ bullet
+- mob kill w/ other mob (spin)
+- npc save
+- pickups (gold/gems)
+
+- does tile get hit?
+	- does it have a drop? if so, create it
+		- does it change sprite?
+
+- spin power coresponds to amount of debris when hitting things?
+
+Lookup table for which sprites turn into which sprites when they are hit
+	table => stump; mountain => rocks; house => rubble
+		but need w/h of sprite key
+		during sprite lookup, check if it's part of bigger sprite set
 
 
 - Use map as a background so it shows destruction after object is gone
@@ -74,6 +115,7 @@ groups of objects/actors
 		- poison HP-
 		- lightning = kill all in row/col
 		- time stopper
+		- zeus power; can chain anything for a limited time
 	- secret stairs; shortcut or bonus room
 	- pit hole = slows player
 
@@ -94,7 +136,7 @@ UI METERS
 	- determines how much power item has to destroy
 - Fire repeat speed; replenished by collecting rocks
 - Health
-- letter + number for minors
+- letter + number for minors <-- WON'T FIT
 	- S1 = move speed
 	- C1 = chain length
 	- 
