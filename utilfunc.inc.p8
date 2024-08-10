@@ -14,9 +14,6 @@ function get_distance(ox,oy, px,py)
   return (sqrt(a^2+b^2)/16)*16
 end
 
---atan2(tx-fx, ty-fy)
-
-_efn=function() end
 function newobj(x,y,spr,hb,ang,spd)
 	ang=ang or false
 	spd=spd or false

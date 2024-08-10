@@ -46,6 +46,10 @@ end
    add(buls,newbul)
 
 
+IF THERE'S ROOM
+- particles on land when it gets hit/chained
+
+
 zones and boxes
 - viewable playarea
 - activation area; when items become active just before viewable
@@ -59,25 +63,63 @@ groups of objects/actors
 - boss
 - waves/timer/spawner
 
+landscape items; interactive
+- tree
+- mountain
+- house
+- temple
+- greek pillar
+- fence
+- water well
+- grave stones
+- statue
+- market stand
+- pots / vessel
+
+
+FLAGS - IDs are reduced by one with fget() call (1 => 0)
+1=blocks player
+2=shootable by player bullets
+
+
+passive background landscape
+- path rocks
+- river/water (blocker?)
+- grass
+- crop fields
+
+characters
+- hercules (player)
+- girl npc
+- dude npc
 
 types of mobs
-- snake
+- snake; different color = ranged
 - scorpion
-- bat/crow
-- ghost/spirit
+- bat/crow = fly
+- ghost/spirit = fly
 - dragon
 - bear
 - lion
 - wolf
-- harpy/fairy
+- harpy/fairy = fly
 - bull
 - boar/hog
-- skeleton
+- skeleton = ranged; walk-in or rise up
 - crab
 
 Mob props
 - health
 - sprite
+- shooter?
+- static or move/path
+
+- charging mobs will turn if they hit a blocker
+	- +/- 90 at each hit until it gets offscreen
+
+- charging mob style/sprite does not matter; can be random
+	
+
 
 Scoring?
 - mob kill w/ bullet
